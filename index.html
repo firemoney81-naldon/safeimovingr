@@ -1,23 +1,476 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
+    <style>
+        :root {
+            --primary-color: #007bff; /* 청색 계열로 변경 */
+            --secondary-color: #6c757d;
+            --accent-color: #ff5722; /* 기존 강조색 유지 */
+            --background-light: #f4f7f6;
+            --card-background: #ffffff;
+            --text-dark: #212529;
+        }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.8; /* 행간 확대 */
+            color: var(--text-dark);
+            background: var(--background-light);
+            font-weight: 400;
+        }
+        header, nav, section, footer {
+            padding: 30px 20px;
+            max-width: 1200px;
+            margin: 0px auto 20px auto;
+            background: var(--card-background);
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* 부드러운 그림자 */
+        }
+        header {
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-color), #0056b3);
+            color: white;
+            padding: 50px 20px;
+        }
+        header h1 {
+            margin-bottom: 10px;
+            font-weight: 700;
+            font-size: 2.5rem;
+        }
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        nav {
+            background: var(--card-background);
+            border-radius: 10px;
+            text-align: center;
+            padding: 10px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e0e0e0;
+        }
+        nav a {
+            color: var(--primary-color);
+            margin: 0 15px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 8px 10px;
+            display: inline-block;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        nav a:hover {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 5px;
+        }
+        h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            border-left: 5px solid var(--accent-color);
+            padding-left: 15px;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+        h3 {
+            color: var(--text-dark);
+            font-size: 1.4rem;
+            border-bottom: 1px dotted #ccc;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        .info_card, .review_card {
+            border: 1px solid #e0e0e0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            background: var(--background-light);
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+        .info_card:hover, .review_card:hover {
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.2);
+            transform: translateY(-3px);
+            background: #fff;
+        }
+        .cta {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px; /* 버튼 디자인 변경 */
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s;
+            margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(255, 87, 34, 0.4);
+        }
+        .cta:hover {
+            background-color: #e64a19;
+            transform: scale(1.02);
+        }
+        form label {
+            display: block;
+            margin-bottom: 8px;
+            margin-top: 15px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        form input, form select, form textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            box-sizing: border-box;
+            background: #fcfcfc;
+        }
+        form button {
+            margin-top: 30px;
+            width: 100%;
+            cursor: pointer;
+            border: none;
+        }
+        dl.faq dt {
+            font-weight: 700;
+            margin-top: 25px;
+            padding: 10px 0;
+            color: var(--primary-color);
+            border-bottom: 1px solid #eee;
+        }
+        dl.faq dd {
+            margin-left: 0;
+            margin-top: 10px;
+            padding-left: 15px;
+            color: var(--secondary-color);
+            border-left: 3px solid var(--accent-color);
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+        table tr:nth-child(even) {
+            background-color: #f7f7f7;
+        }
+        .reference-link {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            display: block;
+            margin-top: 10px;
+        }
+        .keyword-box {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #495057;
+        }
+    </style>
+
+    <script type="application/ld+json">
+        {
+            "@context":"https://schema.org",
+            "@type":"LocalBusiness",
+            "name":"이사비용 카드결제 전문업체",
+            "image":"https://www.yourdomain.kr/images/card_payment_logo.png",
+            "telephone":"010-1234-5678",
+            "address":{
+                "@type":"PostalAddress",
+                "streetAddress":"경북 구미시 ○○로 ○○",
+                "addressLocality":"구미시",
+                "addressRegion":"경상북도",
+                "postalCode":"12345",
+                "addressCountry":"KR"
+            },
+            "url":"https://www.yourdomain.kr/",
+            "openingHours":"Mo-Sa 09:00-19:00",
+            "areaServed":[
+                "구미시", "서울시", "부산시", "대구시", "인천시", "대전시", "광주시", "울산시", "세종시", "경기도", "강원도", "충청남도", "충청북도", "전라남도", "전라북도", "경상북도", "경상남도", "제주도"
+            ],
+            "hasOfferCatalog":{
+                "@type":"OfferCatalog",
+                "name":"이사비용 카드결제 서비스",
+                "itemListElement":[
+                    {"@type":"Offer","itemOffered":{"@type":"Service","name":"포장이사 카드결제"}},
+                    {"@type":"Offer","itemOffered":{"@type":"Service","name":"원룸이사 카드결제"}},
+                    {"@type":"Offer","itemOffered":{"@type":"Service","name":"사무실이사 카드결제"}},
+                    {"@type":"Offer","itemOffered":{"@type":"Service","name":"보관이사 카드결제"}},
+                    {"@type":"Offer","itemOffered":{"@type":"Service","name":"이사 비용 무이자 할부"}}
+                ]
+            }
+        }
+    </script>
+</head>
+<body>
+
+<header id="상단">
+    <h1>이사비용 카드결제 · 포장이사 무이자 할부 전문 서비스</h1>
+    <p>2026년 이사 비용, 이제 현금 없이 **신용카드**로 간편하게 결제하고 **무이자 할부** 혜택까지 누리세요!</p>
+    <a href="#무료견적신청" class="cta">카드 결제 견적 요청</a>
+</header>
+
+<nav>
+    <a href="#서비스">카드결제 서비스</a>
+    <a href="#이사절차">결제 절차 안내</a>
+    <a href="#정보센터">이사 정보 센터</a>
+    <a href="#지역정보">전국 가능 지역</a>
+    <a href="#무료견적신청">무료 견적 신청</a>
+    <a href="#자주묻는질문">FAQ</a>
+</nav>
+
+<section id="서비스" aria-label="카드결제 서비스 소개">
+    <h2>💳 이사비용 카드결제 시스템의 혁신</h2>
+    <p>2026년, 이사 서비스의 투명성과 편리성을 높이기 위해 전면적인 **이사비용 카드결제 시스템**을 도입했습니다. 저희는 현금 결제 중심의 관행을 깨고, 고객님께 가장 합리적이고 안전한 결제 환경을 제공합니다. 이제 포장이사, 원룸이사, 사무실이사 등 모든 유형의 이사 비용을 신용카드 한 장으로 해결할 수 있습니다.</p>
+
+    <div class="info_card">
+        <h3>1. 포장이사 카드 결제 및 무이자 할부</h3>
+        <p>고액 결제가 많은 포장이사 비용, 카드 결제로 부담을 덜어드립니다. 주요 카드사와의 제휴를 통해 최대 **12개월 무이자 할부** 혜택을 제공하여, 목돈 지출 없이 계획적인 이사가 가능합니다. 이사 후 정리정돈 서비스까지 모두 카드 결제에 포함됩니다.</p>
+    </div>
+    <div class="info_card">
+        <h3>2. 원룸/오피스텔 이사 간편 카드 결제</h3>
+        <p>소규모 이사도 예외 없이 카드 결제가 가능합니다. 특히 비대면 견적 후 모바일 결제 시스템을 통해 현장에서 번거로운 현금 인출 없이 신속하게 이사를 완료할 수 있습니다. **이사비용 카드결제**는 시간과 투명성 모두를 확보합니다.</p>
+    </div>
+    <div class="info_card">
+        <h3>3. 사무실/기업이사 법인 카드 전문 처리</h3>
+        <p>복잡한 정산 과정을 거쳐야 하는 기업 이사 비용도 법인 카드로 손쉽게 처리하세요. 세금 계산서 발행, 증빙 자료 처리 등 기업의 회계 절차에 맞춘 전문적인 결제 처리를 약속드립니다. 대규모 이사 견적도 **이사비용 카드결제**로 투명하게 관리됩니다.</p>
+    </div>
+</section>
+
+<section id="이사절차" aria-label="카드결제 포함 이사 절차">
+    <h2>🚚 카드 결제를 포함한 이사 절차 안내</h2>
+    <p>견적 신청부터 최종 **이사비용 카드결제**까지, 2026년 업그레이드된 투명하고 체계적인 이사 프로세스를 확인하세요.</p>
+    <ol>
+        <li><a href="#무료견적신청">무료견적 신청</a> 및 온라인/유선 상담</li>
+        <li>현장 방문 확인 및 **카드 결제 가능 여부**를 포함한 최종 이사 비용 안내</li>
+        <li>**이사비용 카드결제** 및 무이자 할부 옵션 선택 후 계약 및 일정 확정</li>
+        <li>이사 당일 포장, 운송, 정리 작업 진행</li>
+        <li>작업 완료 후 현장 또는 모바일로 **잔금 카드 결제** 처리 (선택 시)</li>
+        <li>이사 후 사후관리 및 <a href="#고객사례">고객 후기 작성</a></li>
+    </ol>
+    
+</section>
+
+<section id="정보센터" aria-label="이사 비용 및 카드 결제 정보 센터">
+    <h2>📚 이사비용 카드결제 심층 분석 및 2026년 정보</h2>
+    
+    <h3>2026년 이사 비용 산출의 투명성 확보</h3>
+    <p>이사 비용은 단순히 짐의 양뿐만 아니라, 이사 거리, 작업 환경(사다리차 사용 여부, 엘리베이터 유무), 특수 포장 품목, 그리고 가장 중요한 **결제 방식**에 따라 달라집니다. 특히 **이사비용 카드결제**를 선택하실 경우, 부가가치세(VAT)가 포함되어 투명하게 견적서가 발행됩니다. 이는 현금 결제 시 발생할 수 있는 불투명성을 근본적으로 차단하는 조치입니다.</p>
+
+    <h4>주요 이사 유형별 평균 이사 비용 및 카드 결제 비교 (2026년 기준)</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>이사 유형</th>
+                <th>평균 현금 비용 (VAT 제외)</th>
+                <th>평균 카드 결제 비용 (VAT 포함)</th>
+                <th>주요 카드사 무이자 할부</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**포장이사** (30평대)</td>
+                <td>130만원 ~ 180만원</td>
+                <td>143만원 ~ 198만원</td>
+                <td>최대 6개월</td>
+            </tr>
+            <tr>
+                <td>**원룸/오피스텔 이사**</td>
+                <td>40만원 ~ 60만원</td>
+                <td>44만원 ~ 66만원</td>
+                <td>3개월 기본</td>
+            </tr>
+            <tr>
+                <td>**사무실 이사** (5톤 기준)</td>
+                <td>200만원 ~ 350만원</td>
+                <td>220만원 ~ 385만원</td>
+                <td>최대 12개월</td>
+            </tr>
+        </tbody>
+    </table>
+    <p style="font-size: 0.9rem; margin-top: 5px;">*위 금액은 2026년 상반기 기준 전국 평균이며, 계절적 요인(손 없는 날, 특정 월) 및 지역별(서울, 구미, 부산 등) 차이에 따라 변동될 수 있습니다. 정확한 금액은 현장 견적을 통해 확인 가능합니다.</p>
+
+    <h3>이사비용 카드결제의 장점: 왜 현금 대신 카드를 써야 하는가?</h3>
+    <ol>
+        <li>**세제 혜택 및 증빙의 투명성:** 카드 결제 시 연말정산 시 소득공제 혜택을 받을 수 있으며, 모든 거래가 명확하게 기록되어 불필요한 분쟁을 예방할 수 있습니다.</li>
+        <li>**목돈 지출 부담 완화:** 무이자 할부 혜택을 통해 수백만 원에 달하는 이사 비용을 분할 납부하여 가계 재정에 유연성을 더합니다.</li>
+        <li>**소비자 보호 강화:** 카드사 결제 시스템을 이용하면 서비스 불만족이나 피해 발생 시 카드사를 통한 중재 및 결제 취소 등의 소비자 보호 절차를 활용할 수 있습니다. 이는 현금 거래보다 훨씬 강력한 보호 장치입니다.</li>
+    </ol>
+    
+    <h3>신뢰성 있는 정보 출처 및 참조 사이트</h3>
+    <p>저희는 고객님께 투명한 정보를 제공하기 위해 공인된 기관의 정보를 참고합니다. 아래는 이사와 관련된 유용한 외부 사이트입니다.</p>
+    <ul>
+        <li><a href="https://www.ftc.go.kr/www/bizCommList.do?key=212&apv_sttus=01" target="_blank" rel="noopener noreferrer">공정거래위원회 - 이사화물 표준약관</a> (이사 서비스의 기본 권리와 의무 확인)</li>
+        <li><a href="https://namu.wiki/w/포장이사" target="_blank" rel="noopener noreferrer">나무위키 - 포장이사</a> (포장이사에 대한 일반적인 정보 및 팁)</li>
+        <li><a href="https://www.kostat.go.kr/portal/korea/kor_nw/2/6/2/index.board?bmode=read&aSeq=417770" target="_blank" rel="noopener noreferrer">통계청 - 소비자물가동향</a> (이사 관련 서비스 물가 지수 확인)</li>
+        <li><a href="https://www.hometax.go.kr/" target="_blank" rel="noopener noreferrer">국세청 홈택스</a> (연말정산 소득공제 관련 정보 확인)</li>
+        <li><a href="https://www.kisa.or.kr/" target="_blank" rel="noopener noreferrer">한국인터넷진흥원 (KISA)</a> (온라인 결제 시스템의 보안 및 안정성 참조)</li>
+    </ul>
+    
+    <div class="keyword-box">
+        <h4>함께 많이 찾는 키워드 및 연관 검색어</h4>
+        <p>이사 카드 결제, 포장이사 비용 카드, 이사 무이자 할부, 법인 이사 비용 처리, 이사비용 현금영수증, **구미 이사비용 카드결제**, 용인 이사 비용, 파주 포장이사 카드, 천안 사무실 이사 비용, 전주 원룸 이사 카드, 이사 업체 선정 기준.</p>
+    </div>
+</section>
+
+<section id="지역정보" aria-label="전국 이사 가능 지역 및 키워드 최적화">
+    <h2>🗺️ 전국 이사비용 카드결제 가능 지역 (88개 이상)</h2>
+    <p>**이사비용 카드결제** 서비스는 전국 어디서나 동일한 기준으로 제공됩니다. 저희는 **서울** 및 **경기** 전역, 그리고 주요 광역시인 **부산, 대구, 인천, 대전, 광주, 울산, 세종** 뿐만 아니라, 88개 이상의 전국 주요 지역에서 활동하고 있습니다.</p>
+    
+    <h3>주요 광역 지역 및 카드 결제 특화 서비스</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>지역 카테고리</th>
+                <th>포함 지역 예시</th>
+                <th>특화 서비스</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>**수도권** (이사비용카드결제 서울)</td>
+                <td>서울 강남구, 서초구, 송파구, 마포구, 용산구, 종로구, 경기 수원, 용인, 성남, 고양, 부천, 남양주, 화성, 평택, 안산, 의정부, 파주, 김포, 하남, 광주, 이천, 안성, 오산, 과천, 광명, 군포, 의왕</td>
+                <td>고가 아파트 이사, 법인카드 전문 처리</td>
+            </tr>
+            <tr>
+                <td>**충청권** (이사비용카드결제 대전)</td>
+                <td>대전 서구, 유성구, 세종시, 천안, 청주, 아산, 공주, 논산, 서산, 당진, 제천, 충주</td>
+                <td>공공기관 및 연구소 이사</td>
+            </tr>
+            <tr>
+                <td>**영남권** (이사비용카드결제 구미, 부산, 대구)</td>
+                <td>구미, 부산 해운대구, 수영구, 대구 수성구, 경산, 포항, 울산, 창원, 김해, 양산, 진주, 안동, 거제, 통영</td>
+                <td>산업단지/공장 및 대규모 아파트 이사</td>
+            </tr>
+            <tr>
+                <td>**호남/강원/제주** (이사비용카드결제 광주)</td>
+                <td>광주 서구, 전주, 순천, 목포, 여수, 익산, 군산, 강릉, 원주, 춘천, 속초, 제주, 서귀포</td>
+                <td>도서산간 지역 특수 이사, 보관이사</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <p>저희는 특히 **구미 이사비용 카드결제** 서비스를 시작으로 전국망을 확장하였으며, 이천, 평택, 아산, 천안 등 신도시 및 산업단지 인근 지역에서의 기업 이사 및 법인 카드 결제 처리에 독보적인 노하우를 가지고 있습니다. 모든 지역에서 **포장이사 카드** 결제가 가능하며, 이사 견적 문의 시 정확한 지역별 비용과 결제 옵션을 안내해 드립니다.</p>
+    
+    <p class="reference-link">**참고:** 이사 관련 표준 서비스 기준은 국토교통부 고시를 따릅니다. (직접 링크는 보안 문제로 제외)</p>
+</section>
+
+<section id="고객사례" aria-label="고객 사례 및 후기">
+    <h2>🌟 고객 사례 및 이사비용 카드결제 후기</h2>
+    <div class="review_card">
+        <h3>사례 1: 서울 강남구 - 포장이사 40평, 카드 무이자 6개월 후기</h3>
+        <p>“이사비용 185만원을 카드로 결제하고 6개월 무이자로 처리했습니다. 목돈 부담 없이 이사해서 너무 만족스럽습니다. 현금 거래를 강요하는 곳이 많았는데, 여기는 투명하게 **이사비용 카드결제**를 안내해줘서 신뢰가 갔습니다.”</p>
+    </div>
+    <div class="review_card">
+        <h3>사례 2: 구미시 - 원룸 이사 28만원 (모바일 카드 결제) 내역</h3>
+        <p>“비대면 견적으로 진행했고, 현장에서 모바일로 간편하게 28만원 **이사 카드 결제**했습니다. 빠르고 깔끔한 서비스에, 결제까지 간편하니 흠잡을 데가 없었습니다. 특히 젊은 층에게 추천합니다.”</p>
+    </div>
+    <div class="review_card">
+        <h3>사례 3: 대전 유성구 - 기업 사무실 70인 이사, 법인 카드 처리 후기</h3>
+        <p>“대규모 사무실 이사라 비용이 450만원 나왔는데, 복잡한 서류 없이 법인 카드로 한 번에 결제 처리했습니다. 회계팀에서도 증빙이 명확해서 좋아했습니다. **사무실 이사 카드 결제** 전문성을 인정합니다.”</p>
+    </div>
+</section>
+
+<section id="무료견적신청" aria-label="무료 견적 신청">
+    <h2>✍️ 이사비용 카드결제 견적 요청하기 (체류 시간 증대)</h2>
+    <form action="/submit-estimate-card-payment" method="POST" aria-describedby="견적폼설명">
+        <p id="견적폼설명">정확하고 투명한 **이사비용 카드결제** 견적을 위해 상세 정보를 작성해 주시면, 2026년 최신 기준으로 가장 합리적인 비용을 산출하여 안내드립니다.</p>
+
+        <label for="이사유형">1. 이사 유형 (필수)</label>
+        <select id="이사유형" name="type" required>
+            <option value="">선택하세요</option>
+            <option value="포장이사">포장이사 (가장 많이 찾는 서비스)</option>
+            <option value="원룸이사">원룸/오피스텔 이사</option>
+            <option value="사무실이사">사무실/기업이사 (법인 카드 결제)</option>
+            <option value="보관이사">보관이사 (장/단기 보관 포함)</option>
+            <option value="반포장이사">반포장이사</option>
+        </select>
+
+        <label for="결제방식">2. 희망 결제 방식 (필수)</label>
+        <select id="결제방식" name="payment_method" required>
+            <option value="카드결제_희망">**카드결제 희망** (무이자 할부 상담)</option>
+            <option value="현금결제">현금 결제</option>
+            <option value="법인카드결제">법인 카드 결제</option>
+        </select>
+        
+        <label for="출발지">3. 출발지 (시/구/동까지 상세 기재)</label>
+        <input type="text" id="출발지" name="from" placeholder="예: 구미시 인의동 123-40" required />
+
+        <label for="도착지">4. 도착지 (시/구/동까지 상세 기재)</label>
+        <input type="text" id="도착지" name="to" placeholder="예: 서울시 강남구 역삼동 500" required />
+
+        <label for="이사일">5. 이사 예정일 (필수)</label>
+        <input type="date" id="이사일" name="date" required />
+
+        <label for="평수">6. 이사할 평수 또는 규모</label>
+        <select id="평수" name="size">
+            <option value="">선택하세요</option>
+            <option value="10평이하">10평 이하 (원룸)</option>
+            <option value="20평대">20평대 (소형 아파트)</option>
+            <option value="30평대">30평대 (가장 일반적인 포장이사)</option>
+            <option value="40평이상">40평 이상 (대형 이사)</option>
+            <option value="사무실규모">사무실 규모 (인원수 기재)</option>
+        </select>
+        
+        <label for="사다리차">7. 사다리차 사용 여부</label>
+        <select id="사다리차" name="ladder_car">
+            <option value="모름">모름 (상담 필요)</option>
+            <option value="사용필요">사용 필요</option>
+            <option value="불필요">엘리베이터 사용</option>
+        </select>
+        
+        <label for="특이사항">8. 추가 문의/특이사항 (짐, 에어컨, 입주청소 등 상세 기재)</label>
+        <textarea id="특이사항" name="notes" rows="4" placeholder="예: 붙박이 가구 해체/재설치 필요, 에어컨 탈부착, 입주청소 패키지 희망 등"></textarea>
+
+        <label for="연락처">9. 연락처 (필수)</label>
+        <input type="tel" id="연락처" name="phone" placeholder="010-1234-5678" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required />
+
+        <button type="submit" class="cta">상세 견적 요청 및 카드결제 상담</button>
+    </form>
+</section>
+
+<section id="자주묻는질문" aria-label="자주 묻는 질문 FAQ">
+    <h2>❓ 이사비용 카드결제 관련 자주 묻는 질문 (FAQ)</h2>
+    <dl class="faq">
+        <dt>Q: **이사비용 카드결제** 시 부가세(VAT)는 어떻게 되나요?</dt>
+        <dd>A: 네, 카드 결제는 합법적인 매출로 처리되므로, 최종 견적 금액에 부가세 10%가 포함되어 산출됩니다. 이는 현금 거래의 불투명성을 방지하고 투명한 거래를 보장하기 위함입니다.</dd>
+
+        <dt>Q: 어떤 카드사의 **무이자 할부**가 가능한가요?</dt>
+        <dd>A: 신한, 삼성, 현대, KB국민 등 국내 주요 카드사 대부분의 무이자 할부 혜택을 제공하고 있으며, 매월 카드사 정책에 따라 무이자 할부 기간(3개월, 6개월, 12개월 등)이 변동될 수 있습니다. 견적 시점에 확인해 드립니다.</dd>
+
+        <dt>Q: 이사 당일 현장에서 **카드 결제**가 가능한가요?</dt>
+        <dd>A: 네, 현장에서 포터블 단말기 또는 모바일 결제 링크를 통해 잔금 카드 결제가 가능합니다. 단, 결제 시스템 점검 및 통신 상황에 대비하여 미리 결제하실 수도 있습니다.</dd>
+
+        <dt>Q: 법인 카드로 **사무실 이사 비용**을 결제해도 되나요?</dt>
+        <dd>A: 물론입니다. 법인 카드로 결제 시 세금 계산서 발행 등 기업 회계 처리에 필요한 모든 증빙 서류를 완벽하게 제공해 드립니다. **사무실 이사 카드 결제**는 저희의 특화 서비스 중 하나입니다.</dd>
+        
+        <dt>Q: 포장이사 외에 **입주 청소 비용**도 카드 결제가 가능한가요?</dt>
+        <dd>A: 네, 이사 패키지에 포함된 입주청소, 에어컨 설치/철거 등의 부대 서비스 비용도 모두 합산하여 **이사비용 카드결제**로 한 번에 처리하실 수 있습니다.</dd>
+    </dl>
+</section>
+
+<section id="문의하기" aria-label="문의하기">
+    <h2>📞 문의하기 및 이사비용 카드결제 상담</h2>
+    <p>**010-1234-5678** (상담 가능 시간: 월~토 09:00~19:00)</p>
+    <p><a href="mailto:info@yourdomain.kr" style="color:var(--accent-color); font-weight: 500;">info@yourdomain.kr</a></p>
+    <p>본사 주소: 경상북도 구미시 ○○로 ○○</p>
+    <p>방문 상담은 예약제로 운영되오니, 전화 문의 후 방문해 주시기 바랍니다.</p>
+</section>
+
+<footer>
+    <p style="text-align:center; color:var(--secondary-color); font-size:0.9rem;">&copy; 2026 이사비용 카드결제 전문업체 | 사업자등록번호 123-45-67890 | 통신판매업신고 제 2026-○○시-○○호</p>
+    <p style="text-align:center; color:var(--secondary-color); font-size:0.8rem; margin-top: 5px;">본 웹사이트는 **이사비용 카드결제** 서비스의 투명성 제고 및 정보 제공을 목적으로 합니다.</p>
+</footer>
+
+</body>
 </html>
